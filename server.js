@@ -11,10 +11,12 @@ app.use(express.static('public'));
 app.use(express.json())
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + "/public/pages/kontakt.html")
+    res.setHeader("Content-Security-Policy", "script-src 'self'");
+    res.sendFile(__dirname + "/public/pages/kontakt.html");
 });
 
 app.post("/", (req, res) => {
+    res.setHeader("Content-Security-Policy", "script-src 'self'")
     console.log(req.body)
 
     const transporter = nodemailer.createTransport({

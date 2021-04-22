@@ -25,31 +25,33 @@ let message = document.getElementById("message");
 
 
 // Listen for a submit
-contactform.addEventListener("submit", (e) => {
-    e.preventDefault()
+if (contactform) {
+    contactform.addEventListener("submit", (e) => {
+        e.preventDefault()
 
-    let formData = {
-        name: name.value,
-        email: email.value, 
-        subject: subject.value,
-        message: message.value
-    }
-
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/");
-    xhr.setRequestHeader("content-type", "application/json");
-    xhr.onload = function() {
-        console.log(xhr.responseText);
-        if (xhr.responseText == "success") {
-            alert("Nachricht wurde gesendet");
-            name.value = "";
-            email.value = "";
-            subject.value = "";
-            message.value = "";
-        }else {
-            alert("Irgendetwas ist schief gelaufen")
+        let formData = {
+            name: name.value,
+            email: email.value, 
+            subject: subject.value,
+            message: message.value
         }
-    }
 
-    xhr.send(JSON.stringify(formData));
-});
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "/");
+        xhr.setRequestHeader("content-type", "application/json");
+        xhr.onload = function() {
+            console.log(xhr.responseText);
+            if (xhr.responseText == "success") {
+                alert("Nachricht wurde gesendet");
+                name.value = "";
+                email.value = "";
+                subject.value = "";
+                message.value = "";
+            }else {
+                alert("Irgendetwas ist schief gelaufen")
+            }
+        }
+
+        xhr.send(JSON.stringify(formData));
+    });
+}
